@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Crypt Password</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Main Activity -->
+    <string name="btnCopy">Copy</string>
+    <string name="btnEncrypt">Encrypt</string>
+    <string name="etPassword">Password</string>
+    <string name="etCodeword">Codeword</string>
+    <string name="etText">Text</string>
+    <string name="txtViewEncryptedString">Encrypted string</string>
+    <string name="imgViewQR_description">QR code</string>
+    <string name="text_empty">Text is empty!</string>
+    <string name="password_empty">Password is empty!</string>
+    <string name="codeword_empty">Codeword is empty!</string>
+    <string name="copy_success">Encrypted string copied!</string>
+    <string name="copy_fail">Encrypted string is empty!</string>
+    <string name="biometric_login_title">Biometric login for Crypt Password</string>
+    <string name="biometric_login_subtitle">Log in using your biometric credential</string>
+    <string name="biometric_login_negative_btn">Cancel</string>
+
+    <!-- Main Menu -->
+    <string name="action_settings">Settings</string>
+
+    <!-- Settings -->
+    <string name="setting_biometric_title">Use biometric authentication</string>
+    <string name="setting_biometric_summaryOn">Login to the application using biometrics</string>
+    <string name="setting_biometric_summaryOff">Login to the application without authentication
+    </string>
+    <string name="setting_biometric_on_auth_succeed">Authentication succeed</string>
+    <string name="setting_biometric_on_auth_failed">
+        Application did not recognize the placed finger print. Please try again!
+    </string>
+    <string name="setting_biometric_authentication">Authentication</string>
+    <string name="setting_biometric_authentication_subtitle">
+        Log in using your biometric credential
+    </string>
+    <string name="setting_biometric_authentication_description">
+        Touch your finger on the finger print sensor to authorise
+    </string>
+    <string name="setting_biometric_authentication_negative_button">Cancel</string>
+    <string name="setting_category_authentication">Authentication method</string>
+    <string name="setting_password_generator_settings">Password generator settings</string>
+    <string name="setting_hash_algorithm">Hash algorithm</string>
+    <string name="setting_hash_algorithm_default">SHA-512</string>
+    <string name="setting_hash_algorithm_summary">Select a hash algorithm</string>
+</resources>

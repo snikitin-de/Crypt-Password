@@ -15,7 +15,9 @@ jobs:
       run: chmod +x ./gradlew
     - name: Build with Gradle
       run: ./gradlew build
-    - name: Build Debug APK
+    - name: Build debug APK
       run: ./gradlew assembleDebug
-    - name: Create APK
-      uses: ./.github/workflows/action.yml
+    - name: Docker build
+      uses: docker build -t apk ./.github/workflows/Dockerfile
+    - name: Docker run
+      uses: docker run apk

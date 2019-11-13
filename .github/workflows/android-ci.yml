@@ -17,9 +17,10 @@ jobs:
       run: ./gradlew build
     - name: Build debug APK
       run: ./gradlew assembleDebug
-    - name: Create a release
-      uses: jcblw/bash@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+    - name: Create artifacts
+      uses: actions/download-artifact@master
       with:
-        args: "echo \"test\""
+        name: artifacts
+        path: path/to/artifact
+    - name: Run
+      run: cat path/to/artifact

@@ -17,10 +17,5 @@ jobs:
       run: ./gradlew build
     - name: Build debug APK
       run: ./gradlew assembleDebug
-    - name: Create artifacts
-      uses: actions/download-artifact@master
-      with:
-        name: artifacts
-        path: path/to/artifact
     - name: Run
-      run: cat path/to/artifact
+      run: copy ./app/build/outputs/apk/debug/*-debug.apk app

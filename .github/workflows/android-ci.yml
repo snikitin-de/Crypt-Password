@@ -18,4 +18,4 @@ jobs:
     - name: Build debug APK
       run: ./gradlew assembleDebug
     - name: Run
-      run: copy ./app/build/outputs/apk/debug/*-debug.apk app
+      run: cp ./app/build/outputs/apk/debug/*-debug.apk app

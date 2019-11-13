@@ -1,0 +1,11 @@
+name: "APK Publisher"
+branding:
+  icon: "package"
+  color: "green"
+description: "Build & Publish APK on Github"
+author: "snikitin-de"
+inputs:
+  GITHUB_TOKEN
+runs:
+  using: "docker"
+  image: "Dockerfile"

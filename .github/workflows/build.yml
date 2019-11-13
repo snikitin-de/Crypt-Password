@@ -18,6 +18,6 @@ jobs:
     - name: Build debug APK
       run: ./gradlew assembleDebug
     - name: Docker build
-      uses: docker build -t apk ./.github/workflows/Dockerfile
+      uses: docker build -t apk snikitin-de/Crypt-password@master
     - name: Docker run
       uses: docker run apk

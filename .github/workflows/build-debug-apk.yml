@@ -20,7 +20,7 @@ jobs:
       run: ./gradlew assembleDebug
     - name: Adding changes to Git
       run: |
-            git add /app/version.properties
+            git add app/version.properties
             git push
     - name: Releasing using Hub
       uses: snikitin-de/action-release-debugapk@master

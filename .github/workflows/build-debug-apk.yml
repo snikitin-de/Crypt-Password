@@ -20,8 +20,10 @@ jobs:
       run: ./gradlew assembleDebug
     - name: Adding changes to Git
       run: |
-            git add ./${APP_FOLDER}/version.properties
-            git push
+            git checkout master
+            git add app/version.properties
+            git commit -m "Обновление номера сборки приложения"
+            git push origin master
     - name: Releasing using Hub
       uses: snikitin-de/action-release-debugapk@master
       env:

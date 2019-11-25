@@ -20,6 +20,8 @@ jobs:
       run: ./gradlew assembleDebug
     - name: Adding changes to Git
       run: |
+            git config --global user.name "Sergey Nikitin"
+            git config --global user.email "snikitin.de@gmail.com"
             git checkout master
             git add app/version.properties
             git commit -m "Обновление номера сборки приложения"

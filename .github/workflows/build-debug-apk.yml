@@ -20,6 +20,7 @@ jobs:
       run: ./gradlew assembleDebug
     - name: Adding changes to Git
       run: |
+            git config --global --add url."git@github.com:".insteadOf "https://github.com/"
             git config --global user.name "Sergey Nikitin"
             git config --global user.email "snikitin.de@gmail.com"
             git checkout master

@@ -20,14 +20,14 @@ jobs:
       run: ./gradlew assembleDebug
     - name: Authentication
       run: git remote set-url --push origin https://snikitin-de:$GITHUB_TOKEN@github.com/snikitin-de/Crypt-password
-    - name: Adding changes to Git
-      run: |
-           git config --global user.name "Sergey Nikitin"
-           git config --global user.email "snikitin.de@gmail.com"
-           git checkout master
-           git add app/version.properties
-           git commit -m "Обновление номера сборки приложения"
-           git push origin master
+    - name: Adding new version of build
+      uses: EndBug/add-and-commit@v2.1.0
+      with:
+         author_name: "Sergey Nikitin"
+         author_email: "snikitin.de@gmail.com"
+         message: "Обновление версии сборки приложения"
+         path: "app/version.properties"
+         pattern: "version.properties"
     - name: Releasing using Hub
       uses: snikitin-de/action-release-debugapk@master
       env:

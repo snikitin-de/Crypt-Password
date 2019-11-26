@@ -1,9 +1,7 @@
-name: Android CI
+name: Build debug apk
 
 on:
  push:
-  branches:
-   - master
 
 jobs:
   build:
@@ -20,9 +18,20 @@ jobs:
       run: ./gradlew build
     - name: Build debug APK
       run: ./gradlew assembleDebug
+    - name: Adding new version of build to Github
+      uses: EndBug/add-and-commit@v2.1.0
+      with:
+         author_name: "Sergey Nikitin"
+         author_email: "snikitin.de@gmail.com"
+         message: "Обновление версии сборки приложения"
+         path: "app/version.properties"
+         pattern: "version.properties"
+         force: false
+      env:
+         GITHUB_TOKEN: ${{ secrets.TOKEN }}
     - name: Releasing using Hub
       uses: snikitin-de/action-release-debugapk@master
       env:
        GITHUB_TOKEN: ${{ secrets.TOKEN }}
        APP_FOLDER: app
-       RELEASE_TITLE: New Build
+       RELEASE_TITLE: Отладочная версия

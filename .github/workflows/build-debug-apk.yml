@@ -2,6 +2,8 @@ name: Build debug apk
 
 on:
  push:
+  paths-ignore:
+    - 'app/version.properties'
 
 jobs:
   build:

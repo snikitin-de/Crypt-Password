@@ -18,6 +18,8 @@ jobs:
       run: ./gradlew build
     - name: Build debug APK
       run: ./gradlew assembleDebug
+    - name: Authentication
+      run: git remote set-url --push origin https://snikitin-de:$GITHUB_TOKEN@github.com/Crypt-password
     - name: Adding changes to Git
       uses: EndBug/add-and-commit@v2.1.0
       with:

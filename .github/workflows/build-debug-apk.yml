@@ -19,15 +19,13 @@ jobs:
     - name: Build debug APK
       run: ./gradlew assembleDebug
     - name: Adding changes to Git
-      run: |
-            ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-            git config --global --add url."git@github.com:".insteadOf "https://github.com/"
-            git config --global user.name "Sergey Nikitin"
-            git config --global user.email "snikitin.de@gmail.com"
-            git checkout master
-            git add app/version.properties
-            git commit -m "Обновление номера сборки приложения"
-            git push origin master
+      uses: EndBug/add-and-commit@v2.1.0
+      with:
+         author_name: "actions"
+         author_email: "actions@github.com"
+         message: "Обновление версии сборки приложения"
+         path: "app/version.properties"
+         pattern: "version.properties"
     - name: Releasing using Hub
       uses: snikitin-de/action-release-debugapk@master
       env:

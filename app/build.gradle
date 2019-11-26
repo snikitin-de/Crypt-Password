@@ -26,7 +26,20 @@ android {
         def versionPatch = versionProps['VERSION_PATCH'].toInteger()
         def versionBuild = versionProps['VERSION_BUILD'].toInteger() + 1
         def versionNumber = versionProps['VERSION_NUMBER'].toInteger() + value
+        def version = "${versionMajor}.${versionMinor}.${versionPatch}-debug+build.${versionBuild}"
 
+
+        android.applicationVariants.all { variant ->
+            variant.outputs.all {
+                if (buildType.name == "release") {
+                    version = version.split("-", 0)[0]
+                }
+                outputFileName = "crypt-password"
+                outputFileName += "-v" + version + ".apk"
+            }
+        }
+
+        versionProps['VERSION'] = version.toString()
         versionProps['VERSION_PATCH'] = versionPatch.toString()
         versionProps['VERSION_BUILD'] = versionBuild.toString()
         versionProps['VERSION_NUMBER'] = versionNumber.toString()
@@ -38,7 +51,7 @@ android {
             minSdkVersion 28
             targetSdkVersion 29
             versionCode versionNumber
-            versionName "${versionMajor}.${versionMinor}.${versionPatch} (${versionBuild})"
+            versionName "${version}"
             testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         }
     } else {
@@ -52,17 +65,6 @@ android {
         debug {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    android.applicationVariants.all { variant ->
-        variant.outputs.all {
-            outputFileName = "crypt-password"
-            outputFileName += "-v" + android.defaultConfig.versionName
-            if (variant.buildType.name == "release") {
-                outputFileName += ".apk"
-            } else {
-                outputFileName += "-debug.apk"
-            }
         }
     }
 }

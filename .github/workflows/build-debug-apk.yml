@@ -21,8 +21,8 @@ jobs:
     - name: Adding changes to Git
       uses: EndBug/add-and-commit@v2.1.0
       with:
-         author_name: "actions"
-         author_email: "actions@github.com"
+         author_name: "Sergey Nikitin"
+         author_email: "snikitin.de@gmail.com"
          message: "Обновление версии сборки приложения"
          path: "app/version.properties"
          pattern: "version.properties"

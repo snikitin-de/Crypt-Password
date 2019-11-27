@@ -2,6 +2,8 @@ name: Build debug apk
 
 on:
  push:
+  branches:    
+    - master
   paths-ignore:
     - 'app/version.properties'
     - 'app/.gitignore'

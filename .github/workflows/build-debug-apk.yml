@@ -4,6 +4,9 @@ on:
  push:
   paths-ignore:
     - 'app/version.properties'
+    - 'app/.gitignore'
+    - '.gitignore'
+    - 'README.md'
 
 jobs:
   build:

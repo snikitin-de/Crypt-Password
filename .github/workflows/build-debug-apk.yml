@@ -5,6 +5,7 @@ on:
   branches:    
     - master
   paths-ignore:
+    - '.github/workflows/*'
     - 'app/version.properties'
     - 'app/.gitignore'
     - '.gitignore'

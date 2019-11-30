@@ -18,16 +18,16 @@ android {
         def versionMinor = 0
         def versionPatch = 0
         def versionBuild = versionProps['VERSION_BUILD'].toInteger() + 1
-        def versionNumber = "${versionMajor}.${versionMinor}.${versionPatch}-" +
+        def version = "${versionMajor}.${versionMinor}.${versionPatch}-" +
                             "debug+build.${versionBuild}"
 
         android.applicationVariants.all { variant ->
             variant.outputs.all {
                 if (buildType.name == "release") {
-                    versionNumber = versionNumber.split("-", 0)[0]
+                    version = version.split("-", 0)[0]
                 }
                 outputFileName = "crypt-password"
-                outputFileName += "-v" + versionNumber + ".apk"
+                outputFileName += "-v" + version + ".apk"
             }
         }
 
@@ -40,9 +40,9 @@ android {
                         "debug" : "release"
 
         if (buildType == "release"){
-            versionProps['VERSION_NUMBER'] = versionNumber.split("-", 0)[0]
+            versionProps['VERSION'] = version.split("-", 0)[0]
         } else if (buildType == "debug"){
-            versionProps['VERSION_NUMBER'] = versionNumber.toString()
+            versionProps['VERSION'] = version.toString()
         }
 
         versionProps.store(versionPropsFile.newWriter(), null)
@@ -52,7 +52,7 @@ android {
             minSdkVersion 28
             targetSdkVersion 29
             versionCode versionBuild
-            versionName versionProps['VERSION_NUMBER'].toString()
+            versionName versionProps['VERSION'].toString()
             testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         }
     } else {

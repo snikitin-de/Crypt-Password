@@ -9,40 +9,41 @@ android {
     buildToolsVersion "29.0.2"
 
     def versionPropsFile = file('version.properties')
+
     if (versionPropsFile.canRead()) {
         Properties versionProps = new Properties()
-
         versionProps.load(new FileInputStream(versionPropsFile))
-
-        def value = 1
-
-        def runTasks = gradle.startParameter.taskNames
-        if ('assemble' in runTasks || 'assembleRelease' in runTasks || 'aR' in runTasks) {
-            value = 1
-        }
 
         def versionMajor = 1
         def versionMinor = 0
-        def versionPatch = versionProps['VERSION_PATCH'].toInteger()
+        def versionPatch = 0
         def versionBuild = versionProps['VERSION_BUILD'].toInteger() + 1
-        def versionNumber = versionProps['VERSION_NUMBER'].toInteger() + value
-        def version = "${versionMajor}.${versionMinor}.${versionPatch}-debug+build.${versionBuild}"
-
+        def versionNumber = "${versionMajor}.${versionMinor}.${versionPatch}-" +
+                            "debug+build.${versionBuild}"
 
         android.applicationVariants.all { variant ->
             variant.outputs.all {
                 if (buildType.name == "release") {
-                    version = version.split("-", 0)[0]
+                    versionNumber = versionNumber.split("-", 0)[0]
                 }
                 outputFileName = "crypt-password"
-                outputFileName += "-v" + version + ".apk"
+                outputFileName += "-v" + versionNumber + ".apk"
             }
         }
 
-        versionProps['VERSION'] = version.toString()
+        versionProps['VERSION_MAJOR'] = versionMajor.toString()
+        versionProps['VERSION_MINOR'] = versionMinor.toString()
         versionProps['VERSION_PATCH'] = versionPatch.toString()
         versionProps['VERSION_BUILD'] = versionBuild.toString()
-        versionProps['VERSION_NUMBER'] = versionNumber.toString()
+
+        def buildType = gradle.startParameter.taskNames.any{it.toLowerCase().contains("debug")} ?
+                        "debug" : "release"
+
+        if (buildType == "release"){
+            versionProps['VERSION_NUMBER'] = versionNumber.split("-", 0)[0]
+        } else if (buildType == "debug"){
+            versionProps['VERSION_NUMBER'] = versionNumber.toString()
+        }
 
         versionProps.store(versionPropsFile.newWriter(), null)
 
@@ -50,16 +51,17 @@ android {
             applicationId "com.snikitinde.cryptpassword"
             minSdkVersion 28
             targetSdkVersion 29
-            versionCode versionNumber
-            versionName "${version}"
+            versionCode versionBuild
+            versionName versionProps['VERSION_NUMBER'].toString()
             testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         }
     } else {
         throw new FileNotFoundException("Could not read version.properties!")
     }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -68,7 +70,6 @@ android {
         }
     }
 }
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
